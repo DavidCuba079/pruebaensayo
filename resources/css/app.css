@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados para el dashboard */
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary: #6b7280;
+    --success: #10b981;
+    --info: #3b82f6;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --light: #f9fafb;
+    --dark: #111827;
+}
+
+/* Estilos base */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply text-gray-800 bg-gray-100;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Tarjetas */
+.card {
+    @apply rounded-lg overflow-hidden transition-all duration-200;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Botones */
+.btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-200;
+}
+
+.btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-outline-primary {
+    @apply border border-blue-600 text-blue-600 hover:bg-blue-50;
+}
+
+/* Tablas */
+.table {
+    @apply min-w-full divide-y divide-gray-200;
+}
+
+.table th {
+    @apply px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.table td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+/* Formularios */
+.form-control {
+    @apply block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    background-color: #e6f3ff; /* Fondo celeste claro para campos de entrada */
+}
+
+/* Estilos adicionales para campos de entrada con fondo celeste */
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+input[type="number"], 
+input[type="tel"], 
+input[type="date"], 
+input[type="time"], 
+input[type="datetime-local"], 
+input[type="file"],
+select,
+textarea {
+    background-color: #e6f3ff !important; /* Fondo celeste claro para todos los campos de entrada */
+}
+
+/* Mantener fondo blanco en focus para mejor visibilidad */
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="password"]:focus, 
+input[type="number"]:focus, 
+input[type="tel"]:focus, 
+input[type="date"]:focus, 
+input[type="time"]:focus, 
+input[type="datetime-local"]:focus, 
+input[type="file"]:focus,
+select:focus,
+textarea:focus {
+    background-color: #ffffff !important;
+}
+
+/* Alertas */
+.alert {
+    @apply p-4 mb-4 rounded-lg;
+}
+
+.alert-success {
+    @apply bg-green-100 border border-green-400 text-green-700;
+}
+
+.alert-danger {
+    @apply bg-red-100 border border-red-400 text-red-700;
+}
+
+/* Badges */
+.badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-success {
+    @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.badge-danger {
+    @apply bg-red-100 text-red-800;
+}
+
+/* Gráficos */
+.chart-container {
+    @apply relative h-80 w-full;
+}
+
+/* Sidebar */
+.sidebar {
+    @apply bg-white shadow-md h-full fixed left-0 top-0 overflow-y-auto transition-all duration-300 z-20;
+    width: 250px;
+}
+
+/* Contenido principal */
+.main-content {
+    @apply ml-0 transition-all duration-300;
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Utilidades */
+.shadow-soft {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+}

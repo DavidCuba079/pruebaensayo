@@ -1,0 +1,749 @@
+@extends('layouts.app')
+
+@section('title', 'Panel de Control')
+
+@section('content')
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Panel de Control</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Compartir</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#quickActionModal">
+            <i class="bi bi-plus-lg me-1"></i> Acción Rápida
+        </button>
+    </div>
+</div>
+
+<!-- Tarjetas de Resumen -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Socios Activos</h6>
+                        <h2 class="mb-0">245</h2>
+                    </div>
+                    <i class="bi bi-people fs-1 opacity-50"></i>
+                </div>
+                <div class="mt-3">
+                    <span class="badge bg-white text-primary">+12% este mes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Ingresos Mensuales</h6>
+                        <h2 class="mb-0">$12,450</h2>
+                    </div>
+                    <i class="bi bi-currency-dollar fs-1 opacity-50"></i>
+                </div>
+                <div class="mt-3">
+                    <span class="badge bg-white text-success">+8% este mes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Clases Hoy</h6>
+                        <h2 class="mb-0">8</h2>
+                    </div>
+                    <i class="bi bi-calendar-check fs-1 opacity-50"></i>
+                </div>
+                <div class="mt-3">
+                    <a href="#" class="text-white">Ver horario <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-white-50 mb-1">Asistencia Hoy</h6>
+                        <h2 class="mb-0">87</h2>
+                    </div>
+                    <i class="bi bi-person-check fs-1 opacity-50"></i>
+                </div>
+                <div class="mt-3">
+                    <span class="badge bg-white text-info">+15% ayer</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Gráficos y Tablas -->
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <h6 class="mb-0">Ingresos Mensuales</h6>
+            </div>
+            <div class="card-body">
+                <canvas id="revenueChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0">Membresías Populares</h6>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-link text-muted p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Ver todo</a></li>
+                        <li><a class="dropdown-item" href="#">Exportar</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Mensual Básica</span>
+                        <span class="text-muted">45%</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Anual Premium</span>
+                        <span class="text-muted">30%</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Trimestral Estándar</span>
+                        <span class="text-muted">20%</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Diaria</span>
+                        <span class="text-muted">5%</span>
+                    </div>
+                    <div class="progress" style="height: 8px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Últimos Miembros -->
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">Últimos Miembros Registrados</h6>
+        <a href="#" class="btn btn-sm btn-outline-primary">Ver todos</a>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Membresía</th>
+                        <th>Fecha de Inicio</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    <span class="avatar-initial rounded-circle bg-primary text-white">JD</span>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Juan Domínguez</h6>
+                                    <small class="text-muted">juan@example.com</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Mensual Premium</td>
+                        <td>01/08/2023</td>
+                        <td><span class="badge bg-success">Activo</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" title="Ver perfil">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    <span class="avatar-initial rounded-circle bg-warning text-white">MP</span>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">María Pérez</h6>
+                                    <small class="text-muted">maria@example.com</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Anual Estándar</td>
+                        <td>25/07/2023</td>
+                        <td><span class="badge bg-success">Activo</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" title="Ver perfil">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    <span class="avatar-initial rounded-circle bg-info text-white">RG</span>
+                                </div>
+                                <div>
+                                    <h6 class="mb-0">Roberto Gómez</h6>
+                                    <small class="text-muted">roberto@example.com</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Mensual Básica</td>
+                        <td>20/07/2023</td>
+                        <td><span class="badge bg-warning">Por vencer</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" title="Ver perfil">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    // Gráfico de ingresos
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                datasets: [{
+                    label: 'Ingresos 2023',
+                    data: [8500, 9200, 10500, 9800, 11200, 12500, 13400, 12800, 0, 0, 0, 0],
+                    borderColor: '#4e73df',
+                    backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+@endpush
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase text-muted mb-1">Miembros Activos</h6>
+                            <h2 class="mb-0">1,248</h2>
+                            <small class="text-success"><i class="bi bi-arrow-up"></i> 12% desde el mes pasado</small>
+                        </div>
+                        <div class="bg-primary bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-people fs-3 text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pt-0">
+                    <a href="#" class="text-decoration-none small">Ver detalles <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase text-muted mb-1">Ingresos Mensuales</h6>
+                            <h2 class="mb-0">$24,580</h2>
+                            <small class="text-success"><i class="bi bi-arrow-up"></i> 8% desde el mes pasado</small>
+                        </div>
+                        <div class="bg-success bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-currency-dollar fs-3 text-success"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pt-0">
+                    <a href="#" class="text-decoration-none small">Ver reporte <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase text-muted mb-1">Clases Hoy</h6>
+                            <h2 class="mb-0">14</h2>
+                            <small class="text-danger"><i class="bi bi-arrow-down"></i> 2 canceladas</small>
+                        </div>
+                        <div class="bg-warning bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-calendar-check fs-3 text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pt-0">
+                    <a href="#" class="text-decoration-none small">Ver horario <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase text-muted mb-1">Visitas Hoy</h6>
+                            <h2 class="mb-0">187</h2>
+                            <small class="text-success"><i class="bi bi-arrow-up"></i> 15% desde ayer</small>
+                        </div>
+                        <div class="bg-info bg-opacity-10 p-3 rounded">
+                            <i class="bi bi-activity fs-3 text-info"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pt-0">
+                    <a href="#" class="text-decoration-none small">Ver estadísticas <i class="bi bi-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos y tablas -->
+    <div class="row g-4 mb-4">
+        <!-- Gráfico de ingresos -->
+        <div class="col-12 col-xl-8">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="mb-0">Ingresos Mensuales</h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Últimos miembros -->
+        <div class="col-12 col-xl-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Últimos Miembros</h5>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Ver todos</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @for($i = 1; $i <= 5; $i++)
+                        <div class="list-group-item border-0">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-sm">
+                                        <div class="avatar-title bg-light text-primary rounded-circle">
+                                            {{ substr("Miembro ".$i, 0, 1) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0">Miembro {{ $i }}</h6>
+                                    <small class="text-muted">Hace {{ $i }} {{ $i === 1 ? 'día' : 'días' }}</small>
+                                </div>
+                                <div class="flex-shrink-0 ms-2">
+                                    <span class="badge bg-success">Activo</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Próximas clases y actividad reciente -->
+    <div class="row g-4">
+        <!-- Próximas clases -->
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Próximas Clases</h5>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Ver horario</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Hora</th>
+                                    <th>Clase</th>
+                                    <th>Instructor</th>
+                                    <th>Inscritos</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $classes = [
+                                        ['time' => '08:00 AM', 'name' => 'Spinning', 'instructor' => 'Carlos M.', 'enrolled' => 12, 'capacity' => 15],
+                                        ['time' => '09:30 AM', 'name' => 'Yoga', 'instructor' => 'Laura G.', 'enrolled' => 8, 'capacity' => 12],
+                                        ['time' => '11:00 AM', 'name' => 'CrossFit', 'instructor' => 'Roberto T.', 'enrolled' => 10, 'capacity' => 10],
+                                        ['time' => '04:30 PM', 'name' => 'Zumba', 'instructor' => 'Sofía L.', 'enrolled' => 14, 'capacity' => 20],
+                                        ['time' => '06:00 PM', 'name' => 'Boxeo', 'instructor' => 'Miguel Á.', 'enrolled' => 9, 'capacity' => 12],
+                                    ];
+                                @endphp
+                                
+                                @foreach($classes as $class)
+                                <tr>
+                                    <td><strong>{{ $class['time'] }}</strong></td>
+                                    <td>{{ $class['name'] }}</td>
+                                    <td>{{ $class['instructor'] }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                                @php
+                                                    $percentage = ($class['enrolled'] / $class['capacity']) * 100;
+                                                    $bgClass = $percentage >= 90 ? 'bg-danger' : ($percentage >= 70 ? 'bg-warning' : 'bg-success');
+                                                @endphp
+                                                <div class="progress-bar {{ $bgClass }}" role="progressbar" style="width: {{ $percentage }}%" 
+                                                     aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <small>{{ $class['enrolled'] }}/{{ $class['capacity'] }}</small>
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary">Ver</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Actividad reciente -->
+        <div class="col-12 col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white border-0 py-3">
+                    <h5 class="mb-0">Actividad Reciente</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="list-group list-group-flush">
+                        @php
+                            $activities = [
+                                ['icon' => 'bi-person-plus', 'color' => 'primary', 'text' => 'Nuevo miembro registrado: María González', 'time' => 'Hace 5 min'],
+                                ['icon' => 'bi-currency-dollar', 'color' => 'success', 'text' => 'Pago registrado de $1,200 por Juan Pérez', 'time' => 'Hace 1 hora'],
+                                ['icon' => 'bi-calendar-x', 'color' => 'danger', 'text' => 'Clase de Pilates cancelada para hoy a las 5:00 PM', 'time' => 'Hace 3 horas'],
+                                ['icon' => 'bi-check-circle', 'color' => 'success', 'text' => 'Asistencia registrada para 12 miembros en Spinning', 'time' => 'Hoy, 8:30 AM'],
+                                ['icon' => 'bi-envelope', 'color' => 'info', 'text' => 'Recordatorio enviado a 5 miembros con pagos pendientes', 'time' => 'Ayer, 6:45 PM'],
+                                ['icon' => 'bi-arrow-repeat', 'color' => 'warning', 'text' => 'Membresía renovada para Ana Martínez', 'time' => 'Ayer, 3:20 PM'],
+                                ['icon' => 'bi-exclamation-triangle', 'color' => 'danger', 'text' => 'Bajo inventario en botellas de agua', 'time' => 'Ayer, 1:15 PM'],
+                            ];
+                        @endphp
+                        
+                        @foreach($activities as $activity)
+                        <div class="list-group-item border-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <div class="avatar-sm">
+                                        <div class="avatar-title bg-{{ $activity['color'] }}-subtle text-{{ $activity['color'] }} rounded-circle">
+                                            <i class="bi {{ $activity['icon'] }}"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-1">{{ $activity['text'] }}</p>
+                                    <small class="text-muted">{{ $activity['time'] }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de acción rápida -->
+<div class="modal fade" id="quickActionModal" tabindex="-1" aria-labelledby="quickActionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickActionModalLabel">Acción Rápida</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <a href="#" class="btn btn-light w-100 h-100 p-3 d-flex flex-column align-items-center text-center">
+                            <i class="bi bi-person-plus fs-2 mb-2 text-primary"></i>
+                            <span>Nuevo Miembro</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-light w-100 h-100 p-3 d-flex flex-column align-items-center text-center">
+                            <i class="bi bi-cash-coin fs-2 mb-2 text-success"></i>
+                            <span>Registrar Pago</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-light w-100 h-100 p-3 d-flex flex-column align-items-center text-center">
+                            <i class="bi bi-calendar-plus fs-2 mb-2 text-warning"></i>
+                            <span>Agendar Clase</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-light w-100 h-100 p-3 d-flex flex-column align-items-center text-center">
+                            <i class="bi bi-envelope fs-2 mb-2 text-info"></i>
+                            <span>Enviar Recordatorio</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Variable global para almacenar la instancia del gráfico
+    let revenueChart = null;
+
+    function initRevenueChart() {
+        // Verificar si el elemento canvas existe
+        const ctx = document.getElementById('revenueChart');
+        if (!ctx) return false;
+        
+        try {
+            // Si ya existe un gráfico, lo destruimos
+            if (revenueChart) {
+                revenueChart.destroy();
+            }
+            
+            // Verificar si el contexto 2D está disponible
+            const ctx2d = ctx.getContext('2d');
+            if (!ctx2d) return false;
+            
+            // Crear nueva instancia del gráfico
+            revenueChart = new Chart(ctx2d, {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                    datasets: [{
+                        label: 'Ingresos 2023',
+                        data: [18500, 20100, 19800, 21500, 23000, 24500, 26000, 25500, 27000, 28500, 30000, 31500],
+                        borderColor: '#4361ee',
+                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#4361ee',
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '#4361ee',
+                        pointHoverBorderColor: '#fff',
+                        pointHoverBorderWidth: 2,
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: {
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return ' $' + context.parsed.y.toLocaleString();
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            return true;
+        } catch (error) {
+            console.error('Error al inicializar el gráfico:', error);
+            return false;
+        }
+    }
+    
+    // Inicializar el gráfico cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inicializar el gráfico
+        initRevenueChart();
+        
+        // Volver a inicializar el gráfico si se redimensiona la ventana
+        let resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                initRevenueChart();
+            }, 250);
+        });
+    });
+    
+    // Exportar la función para que esté disponible globalmente si es necesario
+    window.initRevenueChart = initRevenueChart;
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Inicializar tooltips de Bootstrap
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+@endpush
+
+<!-- Estilos personalizados para el dashboard -->
+@push('styles')
+<style>
+    .avatar-sm {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .avatar-title {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+    }
+    .card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+    }
+    .progress {
+        background-color: #f0f2f5;
+    }
+    .table > :not(caption) > * > * {
+        padding: 1rem 1.25rem;
+    }
+    .list-group-item {
+        padding: 1rem 1.25rem;
+    }
+</style>
+@endpush
+@endsection
